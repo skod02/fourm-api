@@ -1,9 +1,3 @@
-// ============================================================
-// routes/reports.ts — Reports & DMCA Routes
-// POST /api/reports          — Submit content report
-// POST /api/dmca             — Submit DMCA takedown request
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { sessionAuth } from '../middleware/auth.js';
