@@ -1,7 +1,3 @@
-// ============================================================
-// middleware/cors.ts — CORS headers for SPA frontend
-// ============================================================
-
 import type { Context, Next } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 
