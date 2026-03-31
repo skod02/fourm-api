@@ -1,7 +1,3 @@
-// ============================================================
-// lib/keys.ts — License key generation & HWID validation
-// ============================================================
-
 const CHARSET = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Base32 no ambiguous chars
 
 /**
