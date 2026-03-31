@@ -1,9 +1,3 @@
-// ============================================================
-// durable-objects/rate-limiter.ts
-// Per-IP sliding window rate limiter using Durable Objects.
-// Uses Hibernation API for cost efficiency.
-// ============================================================
-
 import { DurableObject } from 'cloudflare:workers';
 import type { Env } from '../types.js';
 
