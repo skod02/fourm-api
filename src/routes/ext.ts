@@ -1,20 +1,3 @@
-// ============================================================
-// routes/ext.ts — External Developer Licensing API
-//
-// All routes authenticated via X-API-Secret header.
-// This is what external tools embed for license key validation.
-//
-// POST /api/ext/validate           — Validate key + HWID
-// GET  /api/ext/announcements      — Active announcements for tools
-// POST /api/ext/announcements      — Create announcement (admin)
-// GET  /api/ext/stats              — Platform stats
-// GET  /api/ext/keys/summary       — Key counts by status
-// GET  /api/ext/users              — User list
-// GET  /api/ext/activity           — Recent activity feed
-// POST /api/ext/keys               — Create a license key
-// DELETE /api/ext/keys/:key        — Revoke a key
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { apiSecretAuth } from '../middleware/auth.js';
