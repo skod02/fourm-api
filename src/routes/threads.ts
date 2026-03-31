@@ -1,16 +1,3 @@
-// ============================================================
-// routes/threads.ts — Thread Board Routes
-// GET    /api/threads
-// GET    /api/threads/:uuid
-// POST   /api/threads
-// PATCH  /api/threads/:uuid
-// DELETE /api/threads/:uuid
-// GET    /api/threads/:uuid/replies
-// POST   /api/threads/:uuid/replies
-// DELETE /api/threads/:uuid/replies/:replyId
-// POST   /api/threads/pong (online presence heartbeat)
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { sessionAuth, optionalSessionAuth, requireRole } from '../middleware/auth.js';
