@@ -1,9 +1,3 @@
-// ============================================================
-// workflows/db-backup.ts
-// Scheduled D1 backup workflow → exports D1 → uploads to R2.
-// Triggered by Cron trigger.
-// ============================================================
-
 import { WorkflowEntrypoint, WorkflowEvent, WorkflowStep } from 'cloudflare:workers';
 import type { Env } from '../types.js';
 
