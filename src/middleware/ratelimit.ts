@@ -1,7 +1,3 @@
-// ============================================================
-// middleware/ratelimit.ts — DO-backed per-IP rate limiter middleware
-// ============================================================
-
 import type { Context, Next } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { rateLimit } from '../lib/response.js';
