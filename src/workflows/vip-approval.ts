@@ -1,9 +1,3 @@
-// ============================================================
-// workflows/vip-approval.ts
-// VIP Request Approval Workflow
-// Triggered when a user submits a VIP membership request.
-// ============================================================
-
 import { WorkflowEntrypoint, WorkflowEvent, WorkflowStep } from 'cloudflare:workers';
 import type { Env } from '../types.js';
 import { now } from '../lib/auth.js';
