@@ -1,8 +1,3 @@
-// ============================================================
-// lib/auth.ts — Web Crypto auth primitives
-// No external dependencies. Pure Workers runtime APIs.
-// ============================================================
-
 const PBKDF2_ITERATIONS = 100_000;
 const PBKDF2_HASH = 'SHA-256';
 const SALT_BYTES = 16;
