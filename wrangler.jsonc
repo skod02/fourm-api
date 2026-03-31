@@ -1,51 +1,173 @@
 /**
- * For more details on how to configure Wrangler, refer to:
+ * Wrangler Configuration — Forum API
  * https://developers.cloudflare.com/workers/wrangler/configuration/
+ *
+ * SETUP STEPS:
+ *  1. Run: npx wrangler d1 create forum_db   → replace database_id below
+ *  2. Run: npx wrangler kv namespace create SESSIONS_KV → replace id
+ *  3. Run: npx wrangler kv namespace create CACHE_KV   → replace id
+ *  4. Run: npx wrangler r2 bucket create attachments   (no id needed)
+ *  5. Run: npx wrangler queues create webhook-queue
+ *  6. Run: npx wrangler queues create email-queue
+ *  7. Run: npx wrangler d1 execute forum_db --file=migrations/0001_initial.sql
+ *  8. Set secrets:
+ *       npx wrangler secret put TURNSTILE_SECRET_KEY
+ *       npx wrangler secret put JWT_SECRET
  */
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "ij",
-	"main": "src/index.ts",
-	"compatibility_date": "2026-03-10",
-	"compatibility_flags": [
-		"nodejs_compat",
-		"global_fetch_strictly_public"
-	],
-	"assets": {
-		// The path to the directory containing the `index.html` file to be served at `/`
-		"directory": "./public"
-	},
-	"observability": {
-		"enabled": true
-	},
-	"upload_source_maps": true,
-    "kv_namespaces": [
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "forum-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-03-10",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+
+  // ── Assets (SPA Frontend) ────────────────────────────────
+  // "assets": {
+  //   "directory": "./public"
+  // },
+
+  // ── Observability ────────────────────────────────────────
+  "observability": {
+    "enabled": true
+  },
+  "upload_source_maps": true,
+
+  // ── Smart Placement ──────────────────────────────────────
+  "placement": {
+    "mode": "smart"
+  },
+
+  // ── Environment Variables ────────────────────────────────
+  "vars": {
+    "ENVIRONMENT": "production"
+  },
+
+  // ── D1 Database ──────────────────────────────────────────
+  "d1_databases": [
     {
-      "binding": "KV",
-      "id": "d64bf85306e44587b365f38c2bf3cb13"
+      "binding": "DB",
+      "database_name": "forum_db",
+      "database_id": "REPLACE_WITH_YOUR_D1_DATABASE_ID",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  // ── KV Namespaces ────────────────────────────────────────
+  "kv_namespaces": [
+    {
+      "binding": "SESSIONS_KV",
+      "id": "REPLACE_WITH_SESSIONS_KV_ID"
+    },
+    {
+      "binding": "CACHE_KV",
+      "id": "REPLACE_WITH_CACHE_KV_ID"
+    }
+  ],
+
+  // ── R2 Buckets ───────────────────────────────────────────
+  "r2_buckets": [
+    {
+      "binding": "ATTACHMENTS",
+      "bucket_name": "forum-attachments"
+    }
+  ],
+
+  // ── Queues ───────────────────────────────────────────────
+  // Producer bindings (so the Worker can send messages)
+  "queues": {
+    "producers": [
+      {
+        "binding": "WEBHOOK_QUEUE",
+        "queue": "webhook-queue"
+      },
+      {
+        "binding": "EMAIL_QUEUE",
+        "queue": "email-queue"
+      }
+    ],
+    // Consumer (the Worker processes messages from these queues)
+    "consumers": [
+      {
+        "queue": "webhook-queue",
+        "max_batch_size": 10,
+        "max_batch_timeout": 5,
+        "max_retries": 3,
+        "dead_letter_queue": "webhook-queue-dlq"
+      },
+      {
+        "queue": "email-queue",
+        "max_batch_size": 5,
+        "max_batch_timeout": 10,
+        "max_retries": 3
+      }
+    ]
+  },
+
+  // ── Durable Objects ──────────────────────────────────────
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "RATE_LIMITER",
+        "class_name": "RateLimiter"
+      },
+      {
+        "name": "ONLINE_TRACKER",
+        "class_name": "OnlineTracker"
+      }
+    ]
+  },
+
+  // ── Workflows ────────────────────────────────────────────
+  "workflows": [
+    {
+      "name": "vip-approval",
+      "binding": "VIP_APPROVAL_WORKFLOW",
+      "class_name": "VipApprovalWorkflow",
+      "script_name": "forum-api"
+    },
+    {
+      "name": "user-onboarding",
+      "binding": "USER_ONBOARDING_WORKFLOW",
+      "class_name": "UserOnboardingWorkflow",
+      "script_name": "forum-api"
+    },
+    {
+      "name": "dmca-takedown",
+      "binding": "DMCA_TAKEDOWN_WORKFLOW",
+      "class_name": "DmcaTakedownWorkflow",
+      "script_name": "forum-api"
+    },
+    {
+      "name": "db-backup",
+      "binding": "DB_BACKUP_WORKFLOW",
+      "class_name": "DbBackupWorkflow",
+      "script_name": "forum-api"
+    }
+  ],
+
+  // ── Workers Analytics Engine ──────────────────────────────
+  "analytics_engine_datasets": [
+    {
+      "binding": "ANALYTICS",
+      "dataset": "forum_events"
+    }
+  ],
+
+  // ── Cron Triggers ────────────────────────────────────────
+  "triggers": {
+    "crons": [
+      "0 2 * * *"
+    ]
+  },
+
+  // ── Migrations (Durable Objects) ─────────────────────────
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_classes": ["RateLimiter", "OnlineTracker"]
     }
   ]
-	/**
-	 * Smart Placement
-	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
-	 */
-	// "placement": {  "mode": "smart" }
-	/**
-	 * Bindings
-	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
-	 * databases, object storage, AI inference, real-time communication and more.
-	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
-	 */
-	/**
-	 * Environment Variables
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-	 * Note: Use secrets to store sensitive data.
-	 * https://developers.cloudflare.com/workers/configuration/secrets/
-	 */
-	// "vars": {  "MY_VARIABLE": "production_value" }
-	/**
-	 * Service Bindings (communicate between multiple Workers)
-	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
-	 */
-	// "services": [  {   "binding": "MY_SERVICE",   "service": "my-service"  } ]
 }
