@@ -1,7 +1,3 @@
-// ============================================================
-// middleware/auth.ts — Session + API Secret authentication
-// ============================================================
-
 import type { Context, Next } from 'hono';
 import { Hono } from 'hono';
 import type { Env, ContextVariables, User } from '../types.js';
