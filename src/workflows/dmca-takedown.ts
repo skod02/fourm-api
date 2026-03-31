@@ -1,9 +1,3 @@
-// ============================================================
-// workflows/dmca-takedown.ts
-// DMCA Takedown Workflow
-// Suspends content, waits for admin review, applies or restores.
-// ============================================================
-
 import { WorkflowEntrypoint, WorkflowEvent, WorkflowStep } from 'cloudflare:workers';
 import type { Env } from '../types.js';
 import { now } from '../lib/auth.js';
