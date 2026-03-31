@@ -1,11 +1,3 @@
-// ============================================================
-// lib/analytics.ts — Workers Analytics Engine write helpers
-// ============================================================
-// Analytics Engine uses writeDataPoint() with blobs (strings),
-// doubles (numbers), and an optional index (for fast filtering).
-// See: https://developers.cloudflare.com/analytics/analytics-engine/
-// ============================================================
-
 import type { AnalyticsEngineDataset } from '@cloudflare/workers-types';
 
 export type EventType =
