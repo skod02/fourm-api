@@ -1,8 +1,3 @@
-// ============================================================
-// lib/response.ts — Standardized API response helpers
-// (Cloudflare Workers — no Express, pure Response objects)
-// ============================================================
-
 import type { ApiError, ApiSuccess } from '../types.js';
 
 /** Success response */
