@@ -1,9 +1,3 @@
-// ============================================================
-// workflows/user-onboarding.ts
-// Post-registration onboarding workflow.
-// Generates API secret, sends welcome message.
-// ============================================================
-
 import { WorkflowEntrypoint, WorkflowEvent, WorkflowStep } from 'cloudflare:workers';
 import type { Env } from '../types.js';
 import { generateApiSecret, hashToken, now } from '../lib/auth.js';
