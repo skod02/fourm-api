@@ -1,13 +1,3 @@
-// ============================================================
-// routes/users.ts — User Profile & Settings Routes
-// GET    /api/users/me
-// GET    /api/users/:uuid/profile
-// PATCH  /api/users/me/username
-// POST   /api/users/me/vip-request
-// POST   /api/users/me/api-secret/regenerate
-// GET    /api/users/me/api-secret
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { sessionAuth } from '../middleware/auth.js';
