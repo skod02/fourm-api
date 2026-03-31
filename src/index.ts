@@ -1,10 +1,3 @@
-// ============================================================
-// src/index.ts — Main Worker Entry Point
-// ============================================================
-// Forum API — Cloudflare Workers + Hono
-// Architecture: D1 + KV + R2 + Queues + Workflows + DO + Analytics Engine
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from './types.js';
 
