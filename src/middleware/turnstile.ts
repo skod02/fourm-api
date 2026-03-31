@@ -1,11 +1,3 @@
-// ============================================================
-// middleware/turnstile.ts — Cloudflare Turnstile validation
-// + Ephemeral ID fraud detection
-// ============================================================
-// Docs: https://developers.cloudflare.com/turnstile/
-//       https://developers.cloudflare.com/turnstile/tutorials/fraud-detection-with-ephemeral-ids/
-// ============================================================
-
 import type { Context } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { badRequest, forbidden } from '../lib/response.js';
