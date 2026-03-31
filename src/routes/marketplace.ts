@@ -1,13 +1,3 @@
-// ============================================================
-// routes/marketplace.ts — Marketplace Listing Routes
-// GET    /api/listings
-// GET    /api/listings/:uuid
-// POST   /api/listings
-// PATCH  /api/listings/:uuid
-// PATCH  /api/listings/:uuid/status (admin)
-// DELETE /api/listings/:uuid
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { sessionAuth, optionalSessionAuth, requireRole, requireVip } from '../middleware/auth.js';
