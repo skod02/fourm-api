@@ -1,13 +1,3 @@
-// ============================================================
-// routes/auth.ts — Authentication Routes
-// POST /api/auth/register
-// POST /api/auth/login
-// POST /api/auth/logout
-// GET  /api/auth/me
-// GET  /api/auth/login-history
-// POST /api/auth/reset-password
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import {
