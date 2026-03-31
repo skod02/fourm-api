@@ -1,7 +1,3 @@
-// ============================================================
-// types.ts — Shared types & Env interface
-// ============================================================
-
 export interface Env {
   // D1 Database
   DB: D1Database;
