@@ -1,9 +1,3 @@
-// ============================================================
-// durable-objects/online-tracker.ts
-// Real-time online user count using Durable Objects.
-// Uses Hibernation API + Alarms for cost-efficient presence tracking.
-// ============================================================
-
 import { DurableObject } from 'cloudflare:workers';
 import type { Env } from '../types.js';
 
