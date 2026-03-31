@@ -1,12 +1,3 @@
-// ============================================================
-// routes/messages.ts — Private Messaging / Inbox Routes
-// GET  /api/messages         — Inbox list
-// POST /api/messages         — Send DM
-// GET  /api/messages/:uuid   — Read message
-// POST /api/messages/:uuid/read — Mark read
-// DELETE /api/messages/:uuid  — Delete (yours)
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { sessionAuth } from '../middleware/auth.js';
