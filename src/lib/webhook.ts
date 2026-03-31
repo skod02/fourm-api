@@ -1,7 +1,3 @@
-// ============================================================
-// lib/webhook.ts — Outbound webhook delivery via Queues
-// ============================================================
-
 import type { Queue } from '@cloudflare/workers-types';
 import type { WebhookMessage } from '../types.js';
 
