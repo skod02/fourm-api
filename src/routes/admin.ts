@@ -1,22 +1,3 @@
-// ============================================================
-// routes/admin.ts — Admin Panel Routes
-// All routes require admin role.
-//
-// GET  /api/admin/users              — User list
-// PATCH /api/admin/users/:id/ban     — Ban/unban user
-// PATCH /api/admin/users/:id/role    — Change role
-// GET  /api/admin/reports            — Open reports
-// PATCH /api/admin/reports/:id       — Resolve/dismiss report
-// GET  /api/admin/dmca               — DMCA requests
-// PATCH /api/admin/dmca/:id          — Uphold/dismiss DMCA
-// GET  /api/admin/vip-queue          — VIP requests
-// POST /api/admin/vip-queue/:id/approve
-// POST /api/admin/vip-queue/:id/deny
-// GET  /api/admin/listings/pending   — Pending marketplace listings
-// GET  /api/admin/stats              — Platform statistics
-// POST /api/admin/announcements      — Create announcement
-// ============================================================
-
 import { Hono } from 'hono';
 import type { Env, ContextVariables } from '../types.js';
 import { sessionAuth, requireRole } from '../middleware/auth.js';
